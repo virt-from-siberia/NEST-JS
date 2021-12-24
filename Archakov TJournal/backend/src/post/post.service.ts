@@ -32,7 +32,9 @@ export class PostService {
     return this.repository.update(id, dto);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    const fined = await this.repository.findOne(+id);
+    if (!fined) throw new NotFoundException('hot found');
     return this.repository.delete(id);
   }
 }

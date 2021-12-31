@@ -22,7 +22,7 @@ export class PostService {
 
   async findOne(id: number) {
     const fined = await this.repository.findOne(+id);
-    if (!fined) throw new NotFoundException('hot found');
+    if (!fined) throw new NotFoundException('post hot found');
     return fined;
   }
 

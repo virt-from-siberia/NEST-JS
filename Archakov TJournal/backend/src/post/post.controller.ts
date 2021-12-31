@@ -25,6 +25,12 @@ export class PostController {
     return this.postService.findAll();
   }
 
+  @Get('/popular')
+  sortByType() {
+    console.log('sort by type');
+    // return this.postService.findAll();
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.postService.findOne(+id);

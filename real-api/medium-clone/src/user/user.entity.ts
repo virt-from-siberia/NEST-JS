@@ -12,6 +12,9 @@ export class UserEntity {
   id: number;
 
   @Column()
+  username: string;
+
+  @Column()
   email: string;
 
   @Column({ default: '' })

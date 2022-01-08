@@ -3,12 +3,16 @@ import {
   Module,
   RequestMethod,
 } from '@nestjs/common';
+
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TagModule } from './tag/tag.module';
+import { UserModule } from './user/user.module';
+import { ArticleModule } from './article/article.module';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import config from './ormconfig';
-import { TagModule } from './tag/tag.module';
-import { UserModule } from './user/user.module';
+
 import { AuthMiddleware } from './user/middlewares/auth.middleware';
 
 @Module({
@@ -16,6 +20,7 @@ import { AuthMiddleware } from './user/middlewares/auth.middleware';
     TypeOrmModule.forRoot(config),
     TagModule,
     UserModule,
+    ArticleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

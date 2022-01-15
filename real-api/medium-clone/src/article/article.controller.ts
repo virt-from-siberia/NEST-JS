@@ -6,22 +6,37 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import { User } from 'src/user/decorators/user.decorator';
 import { AuthGuard } from 'src/user/guards/auth.guard';
-import { UserEntity } from 'src/user/user.entity';
 import { ArticleService } from './article.service';
+
 import { CreateArticleDto } from './dto/createArticle.dto';
+import { UserEntity } from 'src/user/user.entity';
+
 import { ArticleResponseInterface } from './types/article.response.interface';
+import { ArticlesResponseInterface } from './types/articles.response.interface';
 
 @Controller('articles')
 export class ArticleController {
   constructor(
     private readonly articlesService: ArticleService,
   ) {}
+
+  @Get()
+  async findAll(
+    @User('id') currentUserId: number,
+    @Query() query: any,
+  ): Promise<ArticlesResponseInterface> {
+    return await this.articlesService.findAll(
+      currentUserId,
+      query,
+    );
+  }
 
   @Post()
   @UseGuards(AuthGuard)

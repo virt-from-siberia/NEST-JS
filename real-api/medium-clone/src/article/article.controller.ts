@@ -1,7 +1,11 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
+  Param,
   Post,
+  Put,
   UseGuards,
 } from '@nestjs/common';
 import { User } from 'src/user/decorators/user.decorator';
@@ -32,4 +36,30 @@ export class ArticleController {
       article,
     );
   }
+
+  @Get(':slug')
+  async getSingleArticle(
+    @Param('slug') slug: string,
+  ): Promise<ArticleResponseInterface> {
+    const article = await this.articlesService.findBySlug(
+      slug,
+    );
+    return this.articlesService.buildArticleResponse(
+      article,
+    );
+  }
+
+  @Delete(':slug')
+  @UseGuards(AuthGuard)
+  async deleteArticle(
+    @User('id') currentUserId: number,
+    @Param('slug') slug: string,
+  ) {
+    return await this.articlesService.deleteArticle(
+      slug,
+      currentUserId,
+    );
+  }
+
+  @Put()
 }

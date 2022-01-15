@@ -7,6 +7,8 @@ import {
   Post,
   Put,
   UseGuards,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { User } from 'src/user/decorators/user.decorator';
 import { AuthGuard } from 'src/user/guards/auth.guard';
@@ -23,6 +25,7 @@ export class ArticleController {
 
   @Post()
   @UseGuards(AuthGuard)
+  @UsePipes(new ValidationPipe())
   async create(
     @User() currentUser: UserEntity,
     @Body('article') createArticleDto: CreateArticleDto,
@@ -61,5 +64,22 @@ export class ArticleController {
     );
   }
 
-  @Put()
+  @Put(':slug')
+  @UseGuards(AuthGuard)
+  async updateArticle(
+    @User('id') currentUserId: number,
+    @Param('slug') slug: string,
+    @Body('article') updateArticleDto: CreateArticleDto,
+  ): Promise<ArticleResponseInterface> {
+    const article =
+      await this.articlesService.updateArticle(
+        slug,
+        updateArticleDto,
+        currentUserId,
+      );
+
+    return this.articlesService.buildArticleResponse(
+      article,
+    );
+  }
 }

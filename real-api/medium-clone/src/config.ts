@@ -1,1 +1,3 @@
 export const JWT_SECRET = 'secret';
+export const CURRENT_TOKEN =
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhbG9uc284NUBtYWlsLnJ1IiwidXNlcm5hbWUiOiJBbGVrc2V5IEVsY2hpbiIsImlhdCI6MTY0MjIxOTY4N30._gBhN03K9q0zQlPynKK6kLR1oFUpVAb6dRetrF5L6FY';

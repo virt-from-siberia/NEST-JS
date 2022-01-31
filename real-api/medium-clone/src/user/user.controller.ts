@@ -17,6 +17,7 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { User } from './decorators/user.decorator';
 import { AuthGuard } from './guards/auth.guard';
 import { userResponseInterface } from './types/userResponse.interface';
+import { BackendValidationPipe } from '../shared/pipes/backendValidation.pipe';
 
 // import { ExpressRequestInterface } from '../types/expressRequest.interface';
 
@@ -25,7 +26,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post('users')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new BackendValidationPipe())
   async createUser(
     @Body('user') createUserDto: CreateUserDto,
   ): Promise<userResponseInterface> {
@@ -36,7 +37,7 @@ export class UserController {
   }
 
   @Post('users/login')
-  @UsePipes(new ValidationPipe())
+  @UsePipes(new BackendValidationPipe())
   async login(
     @Body('user') loginUserDto: LoginUserDto,
   ): Promise<userResponseInterface> {
